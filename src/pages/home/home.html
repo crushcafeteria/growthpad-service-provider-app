@@ -1,18 +1,72 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Homex</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Marketplace</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="showSearchOptions($event)">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+    <ion-refresher (ionRefresh)="reloadPage($event)">
+        <ion-refresher-content
+            pullingText="Pull to refresh"
+            refreshingText="Refreshing..."></ion-refresher-content>
+    </ion-refresher>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <!--Loader-->
+    <ion-row *ngIf="isLoading">
+        <ion-col col-12 text-center text-muted>
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <h5>Loading...</h5>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col class="pins">
+            <div *ngFor="let index of loop" class="pin">
+                <a href="#!" (click)="viewAd(ad)">
+                    <ion-card>
+                        <img src="https://source.unsplash.com/random/300x300?t={{index}}"/>
+                        <ion-card-content>
+                            <div class="name ellipsize">Ad Name</div>
+                            <small text-muted>Nairobi</small>
+                            <br>
+                            <small text-muted>Ksh 2,000</small>
+                        </ion-card-content>
+                    </ion-card>
+                </a>
+            </div>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col col-12 text-center *ngIf="!hasMoreData">
+            <br>
+            <br>
+            The End
+            <br>
+            <br>
+            <br>
+        </ion-col>
+    </ion-row>
+
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Getting some more..."
+            *ngIf="hasMoreData">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
 </ion-content>
