@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {NavController, PopoverController} from 'ionic-angular';
-import _ from 'lodash';
+import {ModalController, NavController, PopoverController} from 'ionic-angular';
 import {SearchOptionsComponent} from "../../components/search-options/search-options";
+import {AdProvider} from "../../providers/ad/ad";
+import {ViewAdPage} from "../view-ad/view-ad";
 
 @Component({
     selector: 'page-home',
@@ -17,26 +18,27 @@ export class HomePage {
     loop = null;
 
     constructor(public navCtrl: NavController,
-                private popCtrl: PopoverController) {
-        // this.loadAds()
-        this.loop = _.range(0, 50);
+                private popCtrl: PopoverController,
+                public adProvider: AdProvider,
+                public modalCtrl: ModalController) {
+        this.loadAds();
     }
 
     loadMore(infiniteScroll) {
-        // let nextPage = this.page.current_page + 1;
-        //
-        // this.adProvider.getAds(nextPage).then(res => {
-        //     this.page = res;
-        //     for (let i = 0; i < res['data'].length; i++) {
-        //         this.ads.push(res['data'][i]);
-        //     }
-        //
-        //     if (this.page.current_page == this.page.last_page) {
-        //         this.hasMoreData = false;
-        //     }
-        //
-        //     infiniteScroll.complete();
-        // });
+        let nextPage = this.page.current_page + 1;
+
+        this.adProvider.getAds(nextPage).then(res => {
+            this.page = res;
+            for (let i = 0; i < res['data'].length; i++) {
+                this.ads.push(res['data'][i]);
+            }
+
+            if (this.page.current_page == this.page.last_page) {
+                this.hasMoreData = false;
+            }
+
+            infiniteScroll.complete();
+        });
     }
 
     showFilters() {
@@ -64,28 +66,28 @@ export class HomePage {
         // });
     }
 
-    openProfile(user) {
-        // this.navCtrl.push(ProfilePage, {
-        //     user: user
-        // });
+    viewAd(ad) {
+        this.navCtrl.push(ViewAdPage, {
+            ad: ad
+        });
     }
 
     reloadPage(refresher) {
-        // this.loadAds().then(() => {
-        //     refresher.complete();
-        // });
+        this.loadAds().then(() => {
+            refresher.complete();
+        });
     }
 
     loadAds(pageNo = 1) {
-        // return new Promise(resolve => {
-        //     this.isLoading = true;
-        //     this.adProvider.getAds(pageNo).then(res => {
-        //         this.page = res;
-        //         this.ads = res['data'];
-        //         this.isLoading = false;
-        //         resolve(true)
-        //     });
-        // });
+        return new Promise(resolve => {
+            this.isLoading = true;
+            this.adProvider.getAds(pageNo).then(res => {
+                this.page = res;
+                this.ads = res['data'];
+                this.isLoading = false;
+                resolve(true)
+            });
+        });
     }
 
     showSearchOptions(event) {
@@ -93,6 +95,5 @@ export class HomePage {
             ev: event
         });
     }
-
 
 }

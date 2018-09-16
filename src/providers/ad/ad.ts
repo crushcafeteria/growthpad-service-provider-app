@@ -1,25 +1,27 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import config from "../../config";
+import {Storage} from "@ionic/storage";
+import {Authorization} from "../../authorization";
 
-/*
-  Generated class for the AdProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AdProvider {
 
-    constructor(public http: HttpClient) {
+    constructor(public http: HttpClient,
+                public storage: Storage) {
     }
 
     getAds(pageNo) {
         return new Promise((resolve) => {
-            this.http.get(config.url + 'ads?page=' + pageNo)
-                .subscribe(res => {
-                    resolve(res);
+            this.storage.get('token').then(token => {
+                this.http.get(config.url + 'ads?page=' + pageNo, {
+                    headers: new Authorization().attachToken(token.value)
                 })
+                    .subscribe(res => {
+                        resolve(res);
+                    })
+            });
+
 
         });
     }

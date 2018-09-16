@@ -1,0 +1,9 @@
+page-view-ad {
+    .swiper-container, ion-slides {
+        height: auto;
+    }
+
+    ion-slides {
+        position: static;
+    }
+}

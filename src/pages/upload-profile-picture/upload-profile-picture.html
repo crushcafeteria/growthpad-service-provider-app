@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="camera"></ion-icon>
+        </button>
+        <ion-title>Upload a picture</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <!--Upload box-->
+    <ion-col col-12 text-center *ngIf="!previewActivated">
+        <div class="upload-box" text-center tappable (click)="showPictureOptions()">
+            <ion-icon name="information-circle"></ion-icon>
+            Tap this box to begin
+        </div>
+    </ion-col>
+
+    <!--Preview frame-->
+    <ion-col col-12 *ngIf="previewActivated" class="framed" text-center margin-bottom>
+        <img [src]="picPreview">
+    </ion-col>
+
+    <!--Option buttons-->
+    <ion-col margin-top text-center *ngIf="previewActivated">
+        <button ion-button (click)="uploadImage()" margin-top color="secondary" block large>Upload this picture</button>
+        <br>
+        <button ion-button (click)="showPictureOptions()" margin-top small clear color="danger" block>Change Picture</button>
+    </ion-col>
+
+</ion-content>

@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Create an order</ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="closeModal($event)">
+              <ion-icon name="close"></ion-icon>
+          </button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-row>
+        <ion-col>
+            <ion-slides pager="true" autoplay="5000" loop="true">
+                <ion-slide *ngFor="let picture of ad.pictures">
+                    <img src="{{ picture }}">
+                </ion-slide>
+            </ion-slides>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col col-12 text-center>
+            <h4>You are about to order {{ad.name}}</h4>
+        </ion-col>
+        <ion-col col-12>
+            <p text-muted>Type additional instructions about your order in the box below</p>
+            <textarea placeholder="Optional..." style="width: 100%; height: 100px;" [(ngModel)]="instructions" padding></textarea>
+        </ion-col>
+        <ion-col col-12>
+            <button ion-button color="secondary" icon-start block (click)="createOrder()">
+                <ion-icon name="checkmark-circle"></ion-icon> Create this order
+            </button>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

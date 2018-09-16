@@ -1,0 +1,104 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ad.name}}</ion-title>
+        <ion-buttons end>
+            <a href="tel:{{ad.telephone}}" ion-button icon-start outline>
+                <ion-icon name="call"></ion-icon>
+                Call
+            </a>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <!--Slides-->
+    <ion-row>
+        <ion-col>
+            <ion-slides pager="true" autoplay="5000" loop="true">
+                <ion-slide *ngFor="let picture of ad.pictures">
+                    <img src="{{ picture }}">
+                </ion-slide>
+            </ion-slides>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col>
+            <h3 margin-top>Ksh {{ad.price | number}}</h3>
+        </ion-col>
+        <ion-col text-right>
+            <ion-chip style="margin-top: 10px;">
+                <ion-icon name="pin"></ion-icon>
+                <ion-label>{{ad.location}}</ion-label>
+            </ion-chip>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col col-12>
+            <h3>{{ad.name}}</h3>
+            <p>
+                {{ad.description}}
+            </p>
+
+            <ion-list margin-top>
+                <ion-item no-padding>
+                    <ion-avatar item-start>
+                        <img src="http://placehold.it/200x200">
+                    </ion-avatar>
+                    <p>Posted By</p>
+                    <h2>{{ad.publisher.name}}</h2>
+                </ion-item>
+                <ion-item no-padding>
+                    <ion-icon name="call" item-start></ion-icon>
+                    <p>Mobile Number</p>
+                    <h2>
+                        <a href="tel:{{ad.publisher.telephone}}">
+                            {{ad.publisher.telephone}}
+                        </a>
+                    </h2>
+                </ion-item>
+                <ion-item no-padding *ngIf="ad.publisher.email">
+                    <ion-icon name="mail" item-start></ion-icon>
+                    <p>Email</p>
+                    <h2>
+                        <a href="mailto:#">
+                            {{ad.publisher.email}}
+                        </a>
+                    </h2>
+                </ion-item>
+            </ion-list>
+        </ion-col>
+
+        <ion-col col-12>
+            <small text-muted>
+                Posted under {{ad.category}}
+            </small>
+        </ion-col>
+    </ion-row>
+
+    <!--Cart Button-->
+    <ion-fab bottom right>
+        <button ion-fab color="danger" (click)="goToBasket()">
+            0
+            <ion-icon name="cart"></ion-icon>
+        </button>
+    </ion-fab>
+
+
+</ion-content>
+
+<ion-footer no-border>
+    <ion-toolbar color="light">
+        <a href="mailto:{{ad.publisher.email}}?subject=Enquiring%20about%20{{ad.name}}&body=Hello%20{{ad.publisher.name}}%2C%0A%5BTYPE%20YOUR%20MESSAGE%20HERE%5D%0A%0ARegards%2C%0A{{profile?.name}}" ion-button icon-only clear>
+            <ion-icon name="mail"></ion-icon>
+        </a>
+        <ion-buttons end>
+            <button ion-button icon-start color="secondary" solid (click)="addToCart(ad)">
+                <ion-icon name="cart"></ion-icon>
+                Order this item
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

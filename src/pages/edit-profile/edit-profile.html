@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Edit your profile</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-list>
+        <ion-item>
+            <ion-label floating>Full Names</ion-label>
+            <ion-input type="text" [ngModel]="user?.name" (ngModelChange)="user.name=$event"></ion-input>
+        </ion-item>
+        <ion-item margin-top margin-bottom>
+            <ion-label>Gender</ion-label>
+            <ion-select [ngModel]="user?.gender" (ngModelChange)="user.gender=$event">
+                <ion-option value="M">Male</ion-option>
+                <ion-option value="F">Female</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Email Address</ion-label>
+            <ion-input type="email" [ngModel]="user?.email" (ngModelChange)="user.email=$event"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Telephone</ion-label>
+            <ion-input type="number" [ngModel]="user?.telephone" (ngModelChange)="user.telephone=$event"></ion-input>
+        </ion-item>
+        <ion-item>
+            <button ion-button color="secondary" icon-start block (click)="updateProfile()">
+                <ion-icon name="checkmark-circle"></ion-icon> Update Profile
+            </button>
+        </ion-item>
+    </ion-list>
+
+</ion-content>

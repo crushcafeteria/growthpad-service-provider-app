@@ -6,6 +6,7 @@ page-home {
         color: #222;
         margin: 0;
         padding: 0;
+        margin-bottom: -4px;
     }
 
     .col {
@@ -26,5 +27,9 @@ page-home {
     .pin {
         break-inside: avoid;
         margin-bottom: 20px;
+    }
+
+    ion-card-content ion-icon {
+        font-size: 10px !important;
     }
 }

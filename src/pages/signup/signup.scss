@@ -1,0 +1,63 @@
+page-signup {
+    // Fullscreen centered image background
+    ion-content {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-color: transparent;
+    }
+    .scroll-content {
+        display: flex;
+        flex-direction: column;
+        background: #ED213A; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #93291E, #ED213A); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to top, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+    .logo {
+        width: 50%;
+        height: auto;
+        max-width: 12em;
+        margin: 0 auto;
+    }
+    .no-border {
+        border-bottom: 0 !important;
+        box-shadow: none !important;
+    }
+    ion-row {
+        align-items: center;
+        text-align: center;
+    }
+    @media only screen and (min-width: 768px) {
+        ion-col.col {
+            margin: 0 auto;
+            max-width: 40%;
+        }
+    }
+    span {
+        color: white;
+    }
+    ion-item {
+        // border-radius: 30px !important;
+        padding-left: 10px !important;
+        margin-bottom: 10px;
+        background-color: #f6f6f6;
+        opacity: 0.7;
+        font-size: 0.9em;
+    }
+    ion-list {
+        margin: 0;
+    }
+    .login-button {
+        width: 100%;
+        // border-radius: 30px;
+        font-size: 0.9em;
+        // border: 1px solid #fff;
+        background-color: #39acdc;
+    }
+
+    .list-md[inset] {
+        margin: 0px;
+        border-radius: 2px;
+    }
+}

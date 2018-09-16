@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-row>
+        <ion-col></ion-col>
+        <ion-col text-center>
+            <ion-icon name="pin" text-muted style="font-size: 60px;"></ion-icon>
+        </ion-col>
+        <ion-col></ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col text-center>
+            <h4>Where do you reside?</h4>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col no-margin>
+            <ion-searchbar
+                [(ngModel)]="q"
+                [showCancelButton]="true"
+                (ionInput)="suggest($event)"
+                debounce="500">
+            </ion-searchbar>
+        </ion-col>
+    </ion-row>
+
+    <!--Loader-->
+    <ion-row *ngIf="isLoading">
+        <ion-col col-3></ion-col>
+        <ion-col col-6 text-center text-muted>
+            <img src="assets/images/loader.gif" alt="">
+            <h5>Loading...</h5>
+        </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!isLoading && places">
+        <ion-col>
+            <ion-list>
+                <ion-list-header>
+                    Search results for {{q}}
+                </ion-list-header>
+                <button ion-item *ngFor="let place of places" (click)="saveLocation(place)">
+                    <ion-avatar item-start>
+                        <img [src]="place.icon">
+                    </ion-avatar>
+                    <h2>{{place.display_name}}</h2>
+                    <p>{{place.lat}}, {{place.lon}}</p>
+                </button>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+
+
+
+</ion-content>

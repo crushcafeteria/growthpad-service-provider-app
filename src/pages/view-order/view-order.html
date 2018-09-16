@@ -1,0 +1,123 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{order.ad.name}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <!--Slides-->
+    <ion-row>
+        <ion-col>
+            <ion-slides pager="true" autoplay="5000" loop="true">
+                <ion-slide *ngFor="let picture of order.ad.pictures">
+                    <img src="{{ picture }}">
+                </ion-slide>
+            </ion-slides>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col col-12>
+            <h3 margin-top>{{order.ad.name}}</h3>
+            <h5>Ksh {{order.ad.price | number}}</h5>
+        </ion-col>
+        <ion-col col-12>
+            <p>
+                {{order.ad.description}}
+            </p>
+        </ion-col>
+        <ion-col col-12 style="margin-top: -15px;">
+            <small text-muted>
+                Classified under {{order.ad.category}}
+            </small>
+        </ion-col>
+    </ion-row>
+
+    <!--Supplier info-->
+    <ion-card no-padding>
+        <ion-card-header>
+            SUPPLIER DETAILS
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item no-padding>
+                    <ion-avatar item-start>
+                        <img [src]="order.ad.publisher.picture">
+                    </ion-avatar>
+                    <p>Your supplier</p>
+                    <h2>{{order.ad.publisher.name}}</h2>
+                </ion-item>
+                <ion-item no-padding>
+                    <ion-icon name="call" item-start></ion-icon>
+                    <p>Mobile Number</p>
+                    <h2>
+                        <a href="tel:{{order.ad.publisher.telephone}}">
+                            {{order.ad.publisher.telephone}}
+                        </a>
+                    </h2>
+                </ion-item>
+                <ion-item no-padding *ngIf="order.ad.publisher.email">
+                    <ion-icon name="mail" item-start></ion-icon>
+                    <p>Email</p>
+                    <h2>
+                        <a href="mailto:#">
+                            {{order.ad.publisher.email}}
+                        </a>
+                    </h2>
+                </ion-item>
+                <ion-item no-padding *ngIf="order.ad.publisher.email">
+                    <ion-icon name="pin" item-start></ion-icon>
+                    <p>Location</p>
+                    <h2>
+                        {{order.ad.publisher.location.display_name}}
+                    </h2>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+    <!--Order info-->
+    <ion-card no-padding margin-top>
+        <ion-card-header>
+            ORDER DETAILS
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item no-padding>
+                    <ion-avatar item-start>
+                        <img [src]="order.ad.publisher.picture">
+                    </ion-avatar>
+                    <p>Your supplier</p>
+                    <h2>{{order.ad.publisher.name}}</h2>
+                </ion-item>
+                <ion-item no-padding>
+                    <ion-icon name="call" item-start></ion-icon>
+                    <p>Mobile Number</p>
+                    <h2>
+                        <a href="tel:{{order.ad.publisher.telephone}}">
+                            {{order.ad.publisher.telephone}}
+                        </a>
+                    </h2>
+                </ion-item>
+                <ion-item no-padding *ngIf="order.ad.publisher.email">
+                    <ion-icon name="mail" item-start></ion-icon>
+                    <p>Email</p>
+                    <h2>
+                        <a href="mailto:#">
+                            {{order.ad.publisher.email}}
+                        </a>
+                    </h2>
+                </ion-item>
+                <ion-item no-padding *ngIf="order.ad.publisher.email">
+                    <ion-icon name="pin" item-start></ion-icon>
+                    <p>Location</p>
+                    <h2>
+                        {{order.ad.publisher.location.display_name}}
+                    </h2>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

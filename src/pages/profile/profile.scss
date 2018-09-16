@@ -1,0 +1,121 @@
+page-profile {
+    button,
+    ion-button,
+    .button-md,
+    .button-ios {
+        text-transform: none !important;
+    }
+    p {
+        color: #444;
+    }
+    // Cover image
+    #profile-bg {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        margin-top: -16px;
+        height: 180px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-align: center;
+    }
+    // Profile content
+    #content {
+        position: relative;
+        margin-top: 150px;
+        padding-top: 200px;
+        text-align: center;
+    }
+    #profile-image {
+        display: block;
+        border-radius: 50%;
+        margin: 0 auto 0;
+        -webkit-box-shadow: 0px 11px 20px -3px rgba(142, 136, 146, 0.75);
+        box-shadow: 0px 11px 20px -3px rgba(142, 136, 146, 0.75);
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+    }
+    #profile-info {
+        //position: absolute;
+        top: -15px;
+        width: 100%;
+        z-index: 2;
+        text-align: center;
+    }
+    #profile-name {
+        color: #444;
+        font-size: 26px;
+    }
+    .profile-description {
+        font-size: 15px;
+        color: #888;
+        margin-top: -5px;
+    }
+    .follow-button {
+        text-transform: none;
+        border-radius: 3px !important;
+        ion-icon {
+            font-weight: bold;
+            padding-left: 5px;
+            font-size: 2.5rem;
+        }
+    }
+    // Following, Followers and all..
+    .profile-numbers {
+        margin-top: 40px;
+        p {
+            color: #444;
+            font-size: medium;
+            margin-bottom: 3px;
+        }
+        .profile-numbers span {
+            font-weight: bold;
+            font-size: 17px;
+            color: #34354c;
+        }
+    }
+    .hr {
+        border: 0;
+        height: 1px;
+        background: #444;
+        background: -webkit-linear-gradient(left, transparent 0%, #bcc6d6 50%, transparent 100%) !important;
+        margin-top: -53px;
+    }
+    // Posts feed
+    #posts {
+        text-align: justify;
+    }
+
+    .box {
+        margin-top: 40px;
+        margin-bottom: -40px !important;
+    }
+
+    .card-md {
+        margin: 0;
+        width: 100%;
+    }
+
+    .card-header-md {
+        font-size: 1.6rem;
+        padding: 16px;
+        margin-bottom: -10px;
+    }
+
+    ion-badge {
+        margin: 0 5px 5px 0;
+    }
+
+    .item-md {
+        font-size: 1.6rem;
+    }
+    .card .note-md {
+        font-size: 1.6rem;
+    }
+
+    .item-inner {
+        margin-left: 10px !important;
+    }
+}

@@ -22,27 +22,26 @@
 
     <!--Loader-->
     <ion-row *ngIf="isLoading">
-        <ion-col col-12 text-center text-muted>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
+        <ion-col col-3></ion-col>
+        <ion-col col-6 text-center text-muted>
+            <img src="assets/images/loader.gif" alt="">
             <h5>Loading...</h5>
         </ion-col>
     </ion-row>
 
     <ion-row>
         <ion-col class="pins">
-            <div *ngFor="let index of loop" class="pin">
+            <div *ngFor="let ad of ads" class="pin">
                 <a href="#!" (click)="viewAd(ad)">
                     <ion-card>
-                        <img src="https://source.unsplash.com/random/300x300?t={{index}}"/>
+                        <img [src]="ad.featured_picture"/>
                         <ion-card-content>
-                            <div class="name ellipsize">Ad Name</div>
-                            <small text-muted>Nairobi</small>
+                            <div class="name ellipsize">{{ad.name}}</div>
+                            <small text-muted>Ksh {{ad.price | number}}</small>
                             <br>
-                            <small text-muted>Ksh 2,000</small>
+                            <small text-muted icon-start>
+                                <ion-icon name="pin"></ion-icon> {{ad.location}}
+                            </small>
                         </ion-card-content>
                     </ion-card>
                 </a>
@@ -60,6 +59,13 @@
             <br>
         </ion-col>
     </ion-row>
+
+    <!--Cart Button-->
+    <ion-fab bottom right>
+        <button ion-fab color="danger" (click)="goToBasket()">
+            0 <ion-icon name="cart"></ion-icon>
+        </button>
+    </ion-fab>
 
     <ion-infinite-scroll (ionInfinite)="loadMore($event)">
         <ion-infinite-scroll-content

@@ -4,6 +4,15 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
 import {HomePage} from '../pages/home/home';
+import {LandingPage} from "../pages/landing/landing";
+import {NetworkProvider} from "../providers/network/network";
+import {Storage} from "@ionic/storage";
+import {ToastProvider} from "../providers/toast/toast";
+import config from "../config";
+import {SignupPage} from "../pages/signup/signup";
+import {ProfilePage} from "../pages/profile/profile";
+import {OrdersPage} from "../pages/orders/orders";
+import {UploadProfilePicturePage} from "../pages/upload-profile-picture/upload-profile-picture";
 
 @Component({
     templateUrl: 'app.html'
@@ -11,32 +20,81 @@ import {HomePage} from '../pages/home/home';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = HomePage;
+    rootPage: any = UploadProfilePicturePage;
+    pages: Array<{ title: string, component: any, icon: string }>;
+    pingTries = 0;
+    offlineMsgDisplayed = false;
+    loggedIn = false;
+    config: any;
 
-    pages: Array<{ title: string, component: any }>;
-
-    constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+    constructor(public platform: Platform,
+                public statusBar: StatusBar,
+                public splashScreen: SplashScreen,
+                public network: NetworkProvider,
+                public storage: Storage,
+                public toast: ToastProvider) {
         this.initializeApp();
 
-        // used for an example of ngFor and navigation
+        // Side menu
         this.pages = [
-            {title: 'Home', component: HomePage},
+            {title: 'Marketplace', component: HomePage, icon: 'basket'},
+            {title: 'My Orders', component: OrdersPage, icon: 'apps'},
+            {title: 'My Profile', component: ProfilePage, icon: 'contact'},
         ];
+
+        // Load global config
+        this.config = config;
 
     }
 
     initializeApp() {
         this.platform.ready().then(() => {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+
+            this.monitorNetConnection();
+        });
+    }
+
+    monitorNetConnection(timeout = 8000) {
+        setInterval(() => {
+            this.network.isOnline().then(res => {
+                if (res) {
+                    this.storage.set('online', true);
+                    this.pingTries = 0;
+
+                    if (this.offlineMsgDisplayed) {
+                        this.toast.show('You are back online!');
+                        this.offlineMsgDisplayed = false;
+                    }
+                } else {
+                    this.storage.set('online', false);
+                    this.pingTries = this.pingTries + 1;
+                }
+            });
+        }, timeout);
+
+        // Show network disconnected msg
+        setInterval(() => {
+            if (this.pingTries > 0) {
+                if (!this.offlineMsgDisplayed) {
+                    this.toast.show('Internet disconnected. Please ensure your data connection is active.', 6000);
+                }
+                this.offlineMsgDisplayed = true;
+            }
+        }, 1000);
+    }
+
+    logout() {
+        this.storage.clear().then(() => {
+            this.nav.setRoot(LandingPage);
+            this.toast.show('See you soon!')
+        }).then(()=>{
+            this.storage.set('online', true);
         });
     }
 
     openPage(page) {
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
     }
 }

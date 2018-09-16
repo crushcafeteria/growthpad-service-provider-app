@@ -1,0 +1,86 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>My Profile</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <!--Profile picture-->
+    <ion-row>
+        <ion-col id="profile-info" padding>
+            <img id="profile-image" [src]="picPreview" (click)="showPictureOptions()">
+            <h3 id="profile-name">{{user?.name}}</h3>
+            <p class="profile-description">
+                {{config.genders[user?.gender]}}
+            </p>
+            <button ion-button icon-left (click)="showPictureOptions()" small color="primary" *ngIf="!canUpload">
+                <ion-icon name="image"></ion-icon>
+                Change Picture
+            </button>
+            <button ion-button icon-left (click)="uploadImage()" small color="secondary" *ngIf="canUpload" [disabled]="savingDisabled">
+                <ion-icon name="{{savingIcon}}"></ion-icon>
+                {{savingText}}
+            </button>
+            <br>
+        </ion-col>
+    </ion-row>
+
+    <!--Personal info-->
+    <ion-row>
+        <ion-col col-12>
+            <ion-card>
+                <ion-list no-border>
+                    <ion-item>
+                        <ion-icon name='contact' item-start text-muted></ion-icon>
+                        Mobile
+                        <ion-note item-end color="dark">
+                            {{user?.telephone}}
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name='mail' item-start text-muted></ion-icon>
+                        Email
+                        <ion-note item-end color="dark">
+                            {{user?.email}}
+                        </ion-note>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+            <ion-col col-12 text-center no-padding>
+                <button ion-button icon-left block clear color="primary" small (click)="showEditProfile()">
+                    <ion-icon name="build"></ion-icon> Manage your profile
+                </button>
+            </ion-col>
+        </ion-col>
+    </ion-row>
+
+    <!--Location info-->
+    <ion-row margin-top>
+        <ion-col col-12>
+            <ion-card>
+                <ion-card-header text-center>
+                    YOUR LOCATION
+                </ion-card-header>
+                <ion-list no-border>
+                    <img src="https://www.mapquestapi.com/staticmap/v5/map?key={{config.mapquest_key}}&locations={{user?.location.display_name}}&zoom=14&size=400,300">
+                    <ion-item>
+                        <ion-icon name="pin" item-start large></ion-icon>
+                        <h2>{{user?.location.display_name}}</h2>
+                        <p>{{user?.location.lat}}, {{user?.location.lon}}</p>
+                    </ion-item>
+                </ion-list>
+            </ion-card>
+            <ion-col col-12 text-center no-padding>
+                <button ion-button icon-left color="primary" small block clear (click)="changeLocation()">
+                    <ion-icon name="build"></ion-icon> Change Location
+                </button>
+            </ion-col>
+        </ion-col>
+    </ion-row>
+
+</ion-content>
