@@ -34,8 +34,8 @@ export class LandingPage {
                 public iab: InAppBrowser) {
 
         this.loginForm = this.formBuilder.group({
-            email: 'nelson@lipasafe.com',
-            password: 'root'
+            email: '',
+            password: ''
         });
     }
 
@@ -50,12 +50,7 @@ export class LandingPage {
                         if (!profile.location) {
                             this.navCtrl.setRoot(LocationPage);
                         } else {
-                            // Make user to upload picture
-                            if (profile.picture) {
-                                this.navCtrl.setRoot(UploadProfilePicturePage);
-                            } else {
-                                this.navCtrl.setRoot(HomePage);
-                            }
+                            this.navCtrl.setRoot(HomePage);
                         }
                     });
                 }
@@ -83,7 +78,6 @@ export class LandingPage {
 
                                 this.navCtrl.setRoot(HomePage);
                             }
-
                             loader.dismiss();
                             this.toast.show('Welcome, ' + res['user']['name']);
                         });

@@ -3,6 +3,7 @@ import {ModalController, NavController, PopoverController} from 'ionic-angular';
 import {SearchOptionsComponent} from "../../components/search-options/search-options";
 import {AdProvider} from "../../providers/ad/ad";
 import {ViewAdPage} from "../view-ad/view-ad";
+import {OrdersPage} from "../orders/orders";
 
 @Component({
     selector: 'page-home',
@@ -94,6 +95,10 @@ export class HomePage {
         this.popCtrl.create(SearchOptionsComponent).present({
             ev: event
         });
+    }
+
+    goToOrders(){
+        this.navCtrl.push(OrdersPage);
     }
 
 }

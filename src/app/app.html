@@ -1,11 +1,28 @@
 <ion-menu [content]="content">
     <ion-header>
-        <ion-toolbar>
+        <ion-toolbar color="primary">
             <ion-title>{{config.app.name}}</ion-title>
         </ion-toolbar>
     </ion-header>
 
     <ion-content>
+        <ion-row>
+            <ion-col>
+                <ion-card>
+                    <img [src]="user.picture" *ngIf="user"/>
+                    <img src="assets/images/avatar.png" *ngIf="!user"/>
+
+                    <ion-card-content>
+                        <ion-fab right top>
+                            <button ion-fab small>
+                                <ion-icon name="contact"></ion-icon>
+                            </button>
+                        </ion-fab>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
         <ion-list>
             <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" icon-left>
                 <ion-icon [name]="p.icon"></ion-icon> {{p.title}}

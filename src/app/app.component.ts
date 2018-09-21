@@ -9,10 +9,8 @@ import {NetworkProvider} from "../providers/network/network";
 import {Storage} from "@ionic/storage";
 import {ToastProvider} from "../providers/toast/toast";
 import config from "../config";
-import {SignupPage} from "../pages/signup/signup";
 import {ProfilePage} from "../pages/profile/profile";
 import {OrdersPage} from "../pages/orders/orders";
-import {UploadProfilePicturePage} from "../pages/upload-profile-picture/upload-profile-picture";
 
 @Component({
     templateUrl: 'app.html'
@@ -20,11 +18,11 @@ import {UploadProfilePicturePage} from "../pages/upload-profile-picture/upload-p
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = UploadProfilePicturePage;
+    rootPage: any = LandingPage;
     pages: Array<{ title: string, component: any, icon: string }>;
     pingTries = 0;
     offlineMsgDisplayed = false;
-    loggedIn = false;
+    user = null;
     config: any;
 
     constructor(public platform: Platform,
@@ -44,6 +42,13 @@ export class MyApp {
 
         // Load global config
         this.config = config;
+
+        // Check authentication status
+        this.storage.get('profile').then(profile => {
+            if (profile) {
+                this.user = profile;
+            }
+        })
 
     }
 
@@ -89,7 +94,7 @@ export class MyApp {
         this.storage.clear().then(() => {
             this.nav.setRoot(LandingPage);
             this.toast.show('See you soon!')
-        }).then(()=>{
+        }).then(() => {
             this.storage.set('online', true);
         });
     }

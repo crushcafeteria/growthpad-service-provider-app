@@ -13,7 +13,8 @@
     <!--Profile picture-->
     <ion-row>
         <ion-col id="profile-info" padding>
-            <img id="profile-image" [src]="picPreview" (click)="showPictureOptions()">
+            <img class="profile-image" [src]="picPreview" (click)="showPictureOptions()" *ngIf="picPreview">
+            <img class="profile-image" src="assets/images/avatar.png" (click)="showPictureOptions()" *ngIf="!picPreview">
             <h3 id="profile-name">{{user?.name}}</h3>
             <p class="profile-description">
                 {{config.genders[user?.gender]}}

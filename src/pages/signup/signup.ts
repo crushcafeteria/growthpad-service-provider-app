@@ -33,12 +33,12 @@ export class SignupPage {
                 public storage: Storage,
                 public network: NetworkProvider) {
         this.signUpForm = this.formBuilder.group({
-            name: 'Test User',
-            email: 'test@gmail.com',
-            telephone: '0700123456',
-            gender: 'M',
-            county: 'KAKAMEGA',
-            password: 'root'
+            name: '',
+            email: '',
+            telephone: '',
+            gender: '',
+            county: '',
+            password: ''
         });
     }
 
@@ -71,7 +71,7 @@ export class SignupPage {
                         this.storage.set('profile', res['user']);
                         this.navCtrl.setRoot(HomePage);
                         loader.dismiss();
-                        this.toast.show('Welcomex, ' + res['user']['name'] + '!');
+                        this.toast.show('Welcome, ' + res['user']['name'] + '!');
                     }
                 });
             } else {

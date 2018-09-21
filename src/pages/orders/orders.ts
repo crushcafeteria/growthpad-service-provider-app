@@ -18,7 +18,7 @@ export class OrdersPage {
                 public navParams: NavParams,
                 public orderProvider: OrderProvider,
                 public toast: ToastProvider) {
-        this.loadOrders()
+        this.loadOrders();
     }
 
     viewOrder(order) {
