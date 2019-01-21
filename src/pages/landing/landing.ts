@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController} from 'ionic-angular';
+import {Events, IonicPage, MenuController, NavController} from 'ionic-angular';
 import {HomePage} from "../home/home";
 import {Storage} from "@ionic/storage";
 import {NetworkProvider} from "../../providers/network/network";
@@ -12,7 +12,9 @@ import {SignupPage} from "../signup/signup";
 import config from "../../config";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {LocationPage} from "../location/location";
-import {UploadProfilePicturePage} from "../upload-profile-picture/upload-profile-picture";
+import {PostAdPage} from "../post-ad/post-ad";
+import {MyAdsPage} from "../my-ads/my-ads";
+import {OrdersPage} from "../orders/orders";
 
 @IonicPage()
 @Component({
@@ -31,12 +33,18 @@ export class LandingPage {
                 public accountProvider: AccountProvider,
                 public formBuilder: FormBuilder,
                 public toast: ToastProvider,
-                public iab: InAppBrowser) {
+                public iab: InAppBrowser,
+                public menuCtrl: MenuController,
+                public events: Events) {
 
         this.loginForm = this.formBuilder.group({
             email: '',
             password: ''
         });
+
+        // Disable sidemenu
+        this.menuCtrl.enable(false, 'sidemenu');
+
     }
 
     ionViewWillEnter() {
@@ -50,7 +58,7 @@ export class LandingPage {
                         if (!profile.location) {
                             this.navCtrl.setRoot(LocationPage);
                         } else {
-                            this.navCtrl.setRoot(HomePage);
+                            this.navCtrl.setRoot(OrdersPage);
                         }
                     });
                 }
@@ -69,18 +77,27 @@ export class LandingPage {
                         this.toast.show(res['error']);
                         loader.dismiss();
                     } else {
-                        this.storage.set('profile', res['user']).then(() => {
-                            this.storage.set('token', res['token']);
-                        }).then(() => {
-                            if (!res['user']['location']) {
-                                this.navCtrl.setRoot(LocationPage);
-                            } else {
 
-                                this.navCtrl.setRoot(HomePage);
-                            }
+                        if(res['user']['privilege'] == 'SP' || res['user']['privilege'] == 'ADMIN'){
+                            this.storage.set('profile', res['user']).then(() => {
+                                this.storage.set('token', res['token']);
+                            }).then(() => {
+                                if (!res['user']['location']) {
+                                    this.navCtrl.setRoot(LocationPage);
+                                } else {
+
+                                    this.navCtrl.setRoot(OrdersPage);
+                                }
+                                loader.dismiss();
+                                this.toast.show('Welcome, ' + res['user']['name']);
+                            }).then(() => {
+                                // Load profile app-wide
+                                this.events.publish('logged-in');
+                            });
+                        } else {
+                            this.toast.show('Only service providers can use this app! Please contact the IREN team if you wish to sell on this platform', 8000);
                             loader.dismiss();
-                            this.toast.show('Welcome, ' + res['user']['name']);
-                        });
+                        }
                     }
                 });
             } else {

@@ -11,18 +11,61 @@ export class AdProvider {
                 public storage: Storage) {
     }
 
-    getAds(pageNo) {
+    getAds(category, pageNo = 1) {
         return new Promise((resolve) => {
             this.storage.get('token').then(token => {
-                this.http.get(config.url + 'ads?page=' + pageNo, {
+                this.http.get(config.url + 'ads?category=' + category + '&page=' + pageNo, {
                     headers: new Authorization().attachToken(token.value)
                 })
                     .subscribe(res => {
                         resolve(res);
                     })
             });
+        });
+    }
 
+    searchAds(category, q, pageNo = 1) {
+        return new Promise((resolve) => {
+            this.storage.get('token').then(token => {
+                this.http.post(config.url + 'ads/search', {
+                    category: category,
+                    q: q,
+                    page: pageNo
+                }, {
+                    headers: new Authorization().attachToken(token.value)
+                })
+                    .subscribe(res => {
+                        resolve(res);
+                    })
+            });
+        });
+    }
 
+    getSPAds(spID) {
+        return new Promise((resolve) => {
+            this.storage.get('token').then(token => {
+                this.http.get(config.url + 'sp/ads?spID=' + spID, {
+                    headers: new Authorization().attachToken(token.value)
+                })
+                    .subscribe(res => {
+                        resolve(res);
+                    })
+            });
+        });
+    }
+
+    postAd(payload) {
+        return new Promise((resolve) => {
+            this.storage.get('token').then(token => {
+                this.http.post(config.url + 'ads', {
+                    payload: JSON.stringify(payload)
+                }, {
+                    headers: new Authorization().attachToken(token.value)
+                })
+                    .subscribe(res => {
+                        resolve(res);
+                    })
+            });
         });
     }
 

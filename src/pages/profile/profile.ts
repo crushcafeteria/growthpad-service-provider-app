@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {
     ActionSheetController,
-    AlertController,
+    AlertController, Events,
     IonicPage,
     ModalController,
     NavController,
@@ -56,7 +56,8 @@ export class ProfilePage {
                 public alertProvider: AlertProvider,
                 public network: NetworkProvider,
                 private modalCtrl: ModalController,
-                public accountProvider: AccountProvider) {
+                public accountProvider: AccountProvider,
+                public events: Events) {
         this.initialize();
         this.config = config;
     }
@@ -100,13 +101,15 @@ export class ProfilePage {
     public takePicture(sourceType) {
         // Create options for the Camera Dialog
         var options: CameraOptions = {
-            quality: 100,
+            quality: 60,
             sourceType: sourceType,
             saveToPhotoAlbum: false,
             correctOrientation: true,
             mediaType: this.camera.MediaType.PICTURE,
             destinationType: this.camera.DestinationType.DATA_URL,
-            allowEdit: false,
+            allowEdit: true,
+            targetWidth: 600,
+            targetHeight: 600
         };
 
         // Get the data of an image
@@ -144,6 +147,8 @@ export class ProfilePage {
                 this.picPreview = res['profile']['picture'];
                 this.picture = this.localPicUrl = this.picPath = null;
                 this.canUpload = false;
+
+                this.events.publish('logged-in');
 
                 this.toast.show('Your profile picture has been updated!', 6000);
             }
@@ -202,7 +207,7 @@ export class ProfilePage {
         this.navCtrl.push(EditProfilePage);
     }
 
-    changeLocation(){
+    changeLocation() {
         this.navCtrl.push(LocationPage, {
             next: ProfilePage,
             title: 'Change location'

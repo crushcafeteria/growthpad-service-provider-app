@@ -35,6 +35,16 @@ import {File} from "@ionic-native/file";
 import {EditProfilePageModule} from "../pages/edit-profile/edit-profile.module";
 import {ViewOrderPageModule} from "../pages/view-order/view-order.module";
 import {UploadProfilePicturePageModule} from "../pages/upload-profile-picture/upload-profile-picture.module";
+import {PostAdPageModule} from "../pages/post-ad/post-ad.module";
+import {UpdateOrderPageModule} from "../pages/update-order/update-order.module";
+import {ListAdsPageModule} from "../pages/list-ads/list-ads.module";
+import {ListSpPageModule} from "../pages/list-sp/list-sp.module";
+import {ListSpAdsPageModule} from "../pages/list-sp-ads/list-sp-ads.module";
+import {MyAdsPageModule} from "../pages/my-ads/my-ads.module";
+import {CodePush} from "@ionic-native/code-push";
+import {FileTransfer} from "@ionic-native/file-transfer";
+import {FeedbackPageModule} from "../pages/feedback/feedback.module";
+import {BuyCreditsPageModule} from "../pages/buy-credits/buy-credits.module";
 
 @NgModule({
     declarations: [
@@ -49,7 +59,7 @@ import {UploadProfilePicturePageModule} from "../pages/upload-profile-picture/up
         LandingPageModule,
         KeywordPageModule,
         IonicStorageModule.forRoot({
-            name: 'growthpadDB',
+            name: 'growthpadSPDB',
             driverOrder: ['sqlite', 'indexeddb', 'websql']
         }),
         ReactiveFormsModule,
@@ -62,7 +72,15 @@ import {UploadProfilePicturePageModule} from "../pages/upload-profile-picture/up
         AddToCartPageModule,
         EditProfilePageModule,
         ViewOrderPageModule,
-        UploadProfilePicturePageModule
+        UploadProfilePicturePageModule,
+        PostAdPageModule,
+        UpdateOrderPageModule,
+        ListAdsPageModule,
+        ListSpPageModule,
+        ListSpAdsPageModule,
+        MyAdsPageModule,
+        FeedbackPageModule,
+        BuyCreditsPageModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -85,7 +103,8 @@ import {UploadProfilePicturePageModule} from "../pages/upload-profile-picture/up
         OrderProvider,
         FilePath,
         Camera,
-        File
+        File,
+        CodePush,
     ]
 })
 export class AppModule {

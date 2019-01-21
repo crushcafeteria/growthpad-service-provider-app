@@ -3,7 +3,12 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>My Orders</ion-title>
+        <ion-title>Received Orders</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="showFilters()">
+                <ion-icon name="funnel"></ion-icon> Filter
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
@@ -24,7 +29,8 @@
         </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!--Orders list-->
+    <ion-row *ngIf="!isLoading && orders">
         <ion-col>
             <ion-list>
                 <button ion-item *ngFor="let order of orders?.data" (click)="viewOrder(order)">
@@ -33,9 +39,28 @@
                     </ion-avatar>
                     <h2>{{order.ad.name}}</h2>
                     <h3>Ksh {{order.ad.price | number}}</h3>
-                    <ion-note item-end style="font-size: 12px;">{{order.status}}</ion-note>
+                    <ion-note item-end icon-start style="font-size: 12px;" color="dark" *ngIf="order.status == 'PENDING'">
+                        <ion-icon name="mail"></ion-icon>
+                    </ion-note>
+                    <ion-note item-end icon-start style="font-size: 12px;" color="primary2" *ngIf="order.status == 'PROGRESSING'">
+                        <ion-icon name="timer"></ion-icon>
+                    </ion-note>
+                    <ion-note item-end icon-start style="font-size: 12px;" color="secondary" *ngIf="order.status == 'COMPLETE'">
+                        <ion-icon name="checkmark-circle"></ion-icon>
+                    </ion-note>
+                    <ion-note item-end icon-start style="font-size: 12px;" color="danger" *ngIf="order.status == 'CANCELLED'">
+                        <ion-icon name="trash"></ion-icon>
+                    </ion-note>
                 </button>
             </ion-list>
+        </ion-col>
+    </ion-row>
+
+    <!--No orders msg-->
+    <ion-row *ngIf="!isLoading && !orders.total">
+        <ion-col text-center text-muted>
+            <ion-icon name="sad" large-icon></ion-icon>
+            <h4>You have not received any orders from customers</h4>
         </ion-col>
     </ion-row>
 

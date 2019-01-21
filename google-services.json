@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "217058987333",
+    "firebase_url": "https://growthpad-service-provider-app.firebaseio.com",
+    "project_id": "growthpad-service-provider-app",
+    "storage_bucket": "growthpad-service-provider-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217058987333:android:083052655cc4385b",
+        "android_client_info": {
+          "package_name": "com.irenkenya.growthpad.sp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217058987333-6m6pv61gouc6itgthd3lb5g293ghsjjh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGECq3e8jBYew-_VUnWe_8IqcTCwBilnQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
