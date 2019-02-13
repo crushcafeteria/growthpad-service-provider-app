@@ -45,6 +45,8 @@ import {CodePush} from "@ionic-native/code-push";
 import {FileTransfer} from "@ionic-native/file-transfer";
 import {FeedbackPageModule} from "../pages/feedback/feedback.module";
 import {BuyCreditsPageModule} from "../pages/buy-credits/buy-credits.module";
+import {VerifyPaymentPageModule} from "../pages/verify-payment/verify-payment.module";
+import {PaymentProvider} from "../providers/payment/payment";
 
 @NgModule({
     declarations: [
@@ -80,7 +82,8 @@ import {BuyCreditsPageModule} from "../pages/buy-credits/buy-credits.module";
         ListSpAdsPageModule,
         MyAdsPageModule,
         FeedbackPageModule,
-        BuyCreditsPageModule
+        BuyCreditsPageModule,
+        VerifyPaymentPageModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -105,6 +108,7 @@ import {BuyCreditsPageModule} from "../pages/buy-credits/buy-credits.module";
         Camera,
         File,
         CodePush,
+        PaymentProvider
     ]
 })
 export class AppModule {

@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {OrdersPage} from "../orders/orders";
 import {LoaderProvider} from "../../providers/loader/loader";
 import config from "../../config";
+import {VerifyPaymentPage} from "../verify-payment/verify-payment";
 
 @IonicPage()
 @Component({
@@ -20,12 +21,8 @@ export class BuyCreditsPage {
                 public loader: LoaderProvider) {
     }
 
-    goToNext(step) {
-        let loader = this.loader.show('Verifying payment...')
-        setTimeout(()=>{
-            loader.dismiss();
-            this.step = step;
-        }, 2000);
+    verifyPayment(step) {
+        this.navCtrl.push(VerifyPaymentPage);
     }
 
     goHome() {

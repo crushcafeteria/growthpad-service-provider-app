@@ -20,23 +20,24 @@
 
             <ion-list margin-bottom>
                 <ion-item>1. On the M-PESA menu, select Lipa na MPESA</ion-item>
-                <ion-item>2. Choose Pay Bill</ion-item>
-                <ion-item>3. Enter business number {{config.paybill.business_no}}</ion-item>
-                <ion-item>3. Enter account number {{config.paybill.ac_no}}</ion-item>
-                <ion-item>4. Enter the amount you wish to deposit</ion-item>
+                <ion-item>2. Choose Buy Goods And Services</ion-item>
+                <ion-item>3. Enter till number {{config.mpesa.till_no}}</ion-item>
+                <ion-item>4. Enter the amount you wish to pay</ion-item>
                 <ion-item>5. Enter your PIN and confirm</ion-item>
             </ion-list>
 
-            <br>
+            <hr>
 
-            <h3 text-center margin-top margin-bottom>
-                1 credit = Ksh 1
-            </h3>
+            <p text-left margin-top margin-bottom>
+                Ksh 1 = 1 credit
+                <br>
+                Each order you recieve = 10 credits
+            </p>
 
-            <!--<button ion-button color="secondary" icon-end block (click)="goToNext(2)">-->
-                <!--Continue-->
-                <!--<ion-icon name="arrow-forward"></ion-icon>-->
-            <!--</button>-->
+            <button ion-button color="secondary" icon-end block (click)="verifyPayment()">
+                Confirm Payment
+                <ion-icon name="arrow-forward"></ion-icon>
+            </button>
         </ion-col>
 
         <!--<ion-col col-12 *ngIf="step==2" text-center>-->

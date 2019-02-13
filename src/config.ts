@@ -10,9 +10,9 @@ export const config = {
         M: 'Male',
         F: 'Female'
     },
-    paybill: {
-        business_no: '329329',
-        ac_no: '0102096224400'
+    mpesa: {
+        till_no: '206493',
+        name: 'IREN GROWTHPAD'
     }
 };
 
