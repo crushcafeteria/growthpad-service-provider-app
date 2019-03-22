@@ -28,6 +28,8 @@ export class MyApp {
     user = null;
     config: any;
     picture = null;
+    credits = 0;
+    latestProfile = null;
 
     constructor(public platform: Platform,
                 public statusBar: StatusBar,
@@ -42,7 +44,7 @@ export class MyApp {
         // Side menu
         this.pages = [
             {title: 'Received Orders', component: OrdersPage, icon: 'basket'},
-            {title: 'Add Inventory', component: PostAdPage, icon: 'add-circle'},
+            {title: 'Add Product', component: PostAdPage, icon: 'cart'},
             {title: 'Show Inventory', component: MyAdsPage, icon: 'grid'},
             {title: 'Buy Credits', component: BuyCreditsPage, icon: 'ios-cash'},
             {title: 'My Profile', component: ProfilePage, icon: 'contact'},
@@ -57,8 +59,17 @@ export class MyApp {
             this.loadProfile();
         });
 
-        // Try to load profile on every page reload
+        // Load profile
         this.loadProfile();
+        setInterval(()=>{
+        }, 15000);
+
+        // Update credits
+        setInterval(()=>{
+            if(this.latestProfile){
+                this.credits = this.latestProfile.credits;
+            }
+        }, 1000);
     }
 
     initializeApp() {
@@ -80,9 +91,11 @@ export class MyApp {
 
     monitorNetConnection(timeout = 8000) {
         setInterval(() => {
-            this.network.isOnline().then(res => {
+            this.network.isOnline((this.user) ? this.user.id : 'false').then(res => {
+                console.log(res)
                 if (res) {
                     this.storage.set('online', true);
+                    this.latestProfile = res['profile'];
                     this.pingTries = 0;
 
                     if (this.offlineMsgDisplayed) {
@@ -127,9 +140,10 @@ export class MyApp {
     loadProfile() {
         this.storage.get('profile').then(profile => {
             if (profile) {
-                console.log(profile);
                 this.user = profile;
                 this.picture = profile['picture'];
+                this.credits= profile['credits'];
+                this.latestProfile = profile;
             }
         });
     }

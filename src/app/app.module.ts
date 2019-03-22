@@ -42,11 +42,11 @@ import {ListSpPageModule} from "../pages/list-sp/list-sp.module";
 import {ListSpAdsPageModule} from "../pages/list-sp-ads/list-sp-ads.module";
 import {MyAdsPageModule} from "../pages/my-ads/my-ads.module";
 import {CodePush} from "@ionic-native/code-push";
-import {FileTransfer} from "@ionic-native/file-transfer";
 import {FeedbackPageModule} from "../pages/feedback/feedback.module";
 import {BuyCreditsPageModule} from "../pages/buy-credits/buy-credits.module";
 import {VerifyPaymentPageModule} from "../pages/verify-payment/verify-payment.module";
 import {PaymentProvider} from "../providers/payment/payment";
+import {SocialSharing} from "@ionic-native/social-sharing";
 
 @NgModule({
     declarations: [
@@ -108,7 +108,8 @@ import {PaymentProvider} from "../providers/payment/payment";
         Camera,
         File,
         CodePush,
-        PaymentProvider
+        PaymentProvider,
+        SocialSharing
     ]
 })
 export class AppModule {

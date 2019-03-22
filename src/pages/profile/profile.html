@@ -17,7 +17,7 @@
             <img class="profile-image" src="assets/images/avatar.png" (click)="showPictureOptions()" *ngIf="!picPreview">
             <h3 id="profile-name">{{user?.name}}</h3>
             <p class="profile-description">
-                {{config.genders[user?.gender]}}
+                {{user?.business_name}}
             </p>
             <button ion-button icon-left (click)="showPictureOptions()" small color="primary" *ngIf="!canUpload">
                 <ion-icon name="image"></ion-icon>
@@ -88,6 +88,15 @@
                     <ion-icon name="build"></ion-icon> Change Location
                 </button>
             </ion-col>
+        </ion-col>
+    </ion-row>
+
+    <!--Share app-->
+    <ion-row margin-top>
+        <ion-col col-12>
+            <button ion-button color="dark" full round icon-left (click)="share()">
+                <ion-icon name="share"></ion-icon> Tell others about Growthpad
+            </button>
         </ion-col>
     </ion-row>
 

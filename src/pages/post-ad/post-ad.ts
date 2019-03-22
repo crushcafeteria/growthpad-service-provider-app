@@ -156,7 +156,5 @@ export class PostAdPage {
             }
             loader.dismiss()
         });
-
-
     }
 }

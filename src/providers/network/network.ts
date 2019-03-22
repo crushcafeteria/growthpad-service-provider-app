@@ -3,20 +3,22 @@ import {Injectable} from '@angular/core';
 import settings from "../../config";
 import 'rxjs/add/operator/timeout';
 import {AlertController} from "ionic-angular";
+import {Storage} from "@ionic/storage";
 
 @Injectable()
 export class NetworkProvider {
 
     constructor(public http: HttpClient,
-                public alertCtrl: AlertController) {
+                public alertCtrl: AlertController,
+                public storage: Storage) {
     }
 
-    isOnline(timeout= 6000) {
+    isOnline(userID, timeout = 6000) {
         return new Promise(resolve => {
-            this.http.get(settings.url + 'ping').timeout(timeout).subscribe(() => {
-                resolve(true)
+            this.http.get(settings.url + 'ping/' + userID).timeout(timeout).subscribe(res => {
+                resolve(res)
             }, err => {
-                resolve(false);
+                resolve(err);
             });
         });
     }

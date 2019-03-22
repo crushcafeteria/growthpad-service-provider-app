@@ -3,7 +3,7 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Add Inventory</ion-title>
+        <ion-title>Add Product</ion-title>
         <ion-buttons end>
             <!--<button ion-button (click)="goHome()" icon-start *ngIf="step==1">-->
                 <!--<ion-icon name="home"></ion-icon> Home-->
@@ -21,17 +21,12 @@
 <ion-content padding>
 
     <ion-row *ngIf="step==1">
-        <ion-col col-12>
-            <h4 text-center text-muted>1. Enter advert details</h4>
-            <hr>
-        </ion-col>
         <ion-col>
-            <div class="info" text-center>Please fill in all the fields below and tap the Green button</div>
-
+            <!--<div class="info" text-center>Please fill in all the fields below and tap the Green button</div>-->
             <form [formGroup]="postAdForm" (ngSubmit)="saveAd()">
                 <ion-item>
                     <ion-label>Category</ion-label>
-                    <ion-select formControlName="category">
+                    <ion-select formControlName="category" placeholder="Choose" interface="action-sheet">
                         <ion-option value="AGROVET">Agrovet</ion-option>
                         <ion-option value="CATERING">Catering Services</ion-option>
                         <ion-option value="HOTELIER">Hotelier</ion-option>
@@ -42,7 +37,7 @@
                 </div>
 
                 <ion-item>
-                    <ion-label>Title</ion-label>
+                    <ion-label>Name</ion-label>
                     <ion-input type="text" formControlName="name" text-right></ion-input>
                 </ion-item>
                 <div *ngIf="!postAdForm.controls.name.valid && postAdForm.controls.name.dirty" form-error>
@@ -94,11 +89,8 @@
 
     <ion-row *ngIf="step==2">
         <ion-col col-12>
-            <h4 text-center text-muted>2. Upload pictures</h4>
-            <hr>
-            <div class="info" text-center>Please select at least 1 picture</div>
+            <div class="warning" text-center>Please upload at least 1 picture</div>
         </ion-col>
-
         <ion-col col-4 tappable (click)="uploadPicture('A')">
             <img src="http://placehold.it/200x200?text=Tap Me" *ngIf="!pictures.A">
             <img [src]="'data:image/jpeg;base64,'+pictures.A" *ngIf="pictures.A">
@@ -111,7 +103,6 @@
             <img src="http://placehold.it/200x200?text=Tap Me" *ngIf="!pictures.C">
             <img [src]="'data:image/jpeg;base64,'+pictures.C" *ngIf="pictures.C">
         </ion-col>
-
         <ion-col col-12 *ngIf="totalPics > 0">
             <button ion-button color="secondary" block icon-end (click)="setLocation()">
                 Add a location
@@ -121,7 +112,6 @@
     </ion-row>
 
     <ion-row *ngIf="step==3">
-
         <ion-col col-12>
             <h4 text-center text-muted>3. Review and publish</h4>
             <hr>
@@ -188,7 +178,6 @@
             <ion-col col-4 *ngIf="pictures.C">
                 <img [src]="'data:image/jpeg;base64,'+pictures.C">
             </ion-col>
-
             <ion-col col-12>
                 <button ion-button color="secondary" block icon-start (click)="publishAd()">
                     <ion-icon name="cloud-upload"></ion-icon>

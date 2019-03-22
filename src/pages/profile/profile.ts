@@ -19,6 +19,7 @@ import {AccountProvider} from "../../providers/account/account";
 import config from "../../config";
 import {LocationPage} from "../location/location";
 import {EditProfilePage} from "../edit-profile/edit-profile";
+import {SocialSharing} from "@ionic-native/social-sharing";
 
 declare var cordova: any;
 
@@ -57,7 +58,8 @@ export class ProfilePage {
                 public network: NetworkProvider,
                 private modalCtrl: ModalController,
                 public accountProvider: AccountProvider,
-                public events: Events) {
+                public events: Events,
+                public social: SocialSharing) {
         this.initialize();
         this.config = config;
     }
@@ -211,6 +213,15 @@ export class ProfilePage {
         this.navCtrl.push(LocationPage, {
             next: ProfilePage,
             title: 'Change location'
+        });
+    }
+
+    share() {
+        this.social.shareWithOptions({
+            message: 'Download Growthpad Service Provider app',
+            subject: 'Tell others about Growthpad',
+            url: 'https://www.website.com/foo/#bar?a=b',
+            chooserTitle: 'Tell others about Growthpad',
         });
     }
 }
