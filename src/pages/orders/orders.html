@@ -57,7 +57,7 @@
     </ion-row>
 
     <!--No orders msg-->
-    <ion-row *ngIf="!isLoading && !orders.total">
+    <ion-row *ngIf="!isLoading && !orders.data">
         <ion-col text-center text-muted>
             <ion-icon name="sad" large-icon></ion-icon>
             <h4>You have not received any orders from customers</h4>

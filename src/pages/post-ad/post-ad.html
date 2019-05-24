@@ -28,8 +28,10 @@
                     <ion-label>Category</ion-label>
                     <ion-select formControlName="category" placeholder="Choose" interface="action-sheet">
                         <ion-option value="AGROVET">Agrovet</ion-option>
-                        <ion-option value="CATERING">Catering Services</ion-option>
-                        <ion-option value="HOTELIER">Hotelier</ion-option>
+                        <ion-option value="CATERING">Hotels and Outside Catering Services</ion-option>
+                        <ion-option value="CROP_PROTECTION">Crop Protection</ion-option>
+                        <ion-option value="LOGISTICS">Logistics</ion-option>
+                        <ion-option value="CONSULTANCY">Consultancy</ion-option>
                     </ion-select>
                 </ion-item>
                 <div *ngIf="!postAdForm.controls.category.valid && postAdForm.controls.category.dirty" form-error>

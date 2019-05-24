@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Storage} from "@ionic/storage";
-import {AddToCartPage} from "../add-to-cart/add-to-cart";
+import {LoaderProvider} from "../../providers/loader/loader";
+import {AdProvider} from "../../providers/ad/ad";
+import {ToastProvider} from "../../providers/toast/toast";
 
 @IonicPage()
 @Component({
@@ -16,7 +18,10 @@ export class ViewAdPage {
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
                 public storage: Storage,
-                public modalCtrl: ModalController) {
+                public alertCtrl: AlertController,
+                public loader: LoaderProvider,
+                public adProvider: AdProvider,
+                public toast: ToastProvider) {
         this.ad = navParams.get('ad');
         console.log(this.ad)
 
@@ -25,10 +30,35 @@ export class ViewAdPage {
         });
     }
 
-    addToCart(ad) {
-        this.modalCtrl.create(AddToCartPage, {
-            ad: ad
-        }).present();
+    trashAd(ad) {
+        const confirm = this.alertCtrl.create({
+            title: 'Confirm Action',
+            message: 'Are you sure you want to delete this product? This action cannot be reversed',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: () => {
+                        confirm.dismiss();
+                    }
+                },
+                {
+                    text: 'Yes, Delete',
+                    handler: () => {
+                        this.deleteInventory(ad.id)
+                    }
+                }
+            ]
+        });
+        confirm.present();
+    }
+
+    deleteInventory(id) {
+        let loader = this.loader.show('Deleting...');
+        this.adProvider.deleteAd(id).then(res => {
+            this.toast.show(res['msg']);
+            this.navCtrl.pop();
+            loader.dismiss();
+        });
     }
 
 }

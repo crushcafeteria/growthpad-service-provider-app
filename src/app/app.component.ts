@@ -45,7 +45,7 @@ export class MyApp {
         this.pages = [
             {title: 'Received Orders', component: OrdersPage, icon: 'basket'},
             {title: 'Add Product', component: PostAdPage, icon: 'cart'},
-            {title: 'Show Inventory', component: MyAdsPage, icon: 'grid'},
+            {title: 'Manage Inventory', component: MyAdsPage, icon: 'cog'},
             {title: 'Buy Credits', component: BuyCreditsPage, icon: 'ios-cash'},
             {title: 'My Profile', component: ProfilePage, icon: 'contact'},
             {title: 'Send Feedback', component: FeedbackPage, icon: 'mail'},

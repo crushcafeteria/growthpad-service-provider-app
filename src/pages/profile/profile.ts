@@ -82,7 +82,7 @@ export class ProfilePage {
 
     showPictureOptions() {
         const actionSheet = this.actionSheetCtrl.create({
-            title: 'Change your picture',
+            title: 'Upload a picture of your business',
             buttons: [
                 {
                     text: 'Snap with camera',

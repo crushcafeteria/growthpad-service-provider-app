@@ -5,7 +5,6 @@ import {Storage} from "@ionic/storage";
 import {NetworkProvider} from "../../providers/network/network";
 import {LoaderProvider} from "../../providers/loader/loader";
 import {AccountProvider} from "../../providers/account/account";
-import {FormBuilder} from '@angular/forms';
 import {ToastProvider} from "../../providers/toast/toast";
 import _ from 'lodash';
 import {SignupPage} from "../signup/signup";
@@ -15,6 +14,7 @@ import {LocationPage} from "../location/location";
 import {PostAdPage} from "../post-ad/post-ad";
 import {MyAdsPage} from "../my-ads/my-ads";
 import {OrdersPage} from "../orders/orders";
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -25,6 +25,10 @@ export class LandingPage {
 
     public loginForm;
     public backgroundImage = 'assets/img/background/background-5.jpg';
+    public showPass = true;
+    public passType = 'password';
+    public usingID = false;
+
 
     constructor(public loader: LoaderProvider,
                 public navCtrl: NavController,
@@ -38,8 +42,9 @@ export class LandingPage {
                 public events: Events) {
 
         this.loginForm = this.formBuilder.group({
-            email: '',
-            password: ''
+            id: new FormControl(''),
+            email: new FormControl(''),
+            password: new FormControl('', [Validators.required])
         });
 
         // Disable sidemenu
@@ -69,7 +74,6 @@ export class LandingPage {
     login() {
         this.storage.get('online').then(online => {
             if (online) {
-
                 let loader = this.loader.show('Logging in...');
                 let credentials = this.loginForm.value;
                 this.accountProvider.login(credentials).then(res => {
@@ -104,7 +108,6 @@ export class LandingPage {
                 this.network.showRecovery(null);
             }
         });
-
     }
 
     goToSignup() {
@@ -115,6 +118,15 @@ export class LandingPage {
         let iab = this.iab.create(config.password_reset_link, '_self', {
             zoom: 'no'
         });
+    }
+
+    showPassword(state) {
+        this.showPass = state;
+        this.passType = (state) ? 'password' : 'text';
+    }
+
+    toggleID(state) {
+        this.usingID = state;
     }
 
 }

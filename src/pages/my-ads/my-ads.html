@@ -9,6 +9,10 @@
 
 <ion-content padding>
 
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
     <!--Loader-->
     <ion-row *ngIf="isLoading">
         <ion-col col-3></ion-col>
@@ -29,7 +33,8 @@
                             <small text-muted>Ksh {{ad.price | number}}</small>
                             <br>
                             <small text-muted icon-start>
-                                <ion-icon name="list"></ion-icon> {{ad.category}}
+                                <ion-icon name="list"></ion-icon>
+                                {{ad.category}}
                             </small>
                         </ion-card-content>
                     </ion-card>
@@ -56,5 +61,13 @@
             <ion-icon name="add"></ion-icon>
         </button>
     </ion-fab>
+
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)" *ngIf="page && page.current_page > page.last_page ">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Getting some more..."
+            *ngIf="hasMoreData">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
 </ion-content>

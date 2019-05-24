@@ -15,9 +15,9 @@
         <ion-col id="profile-info" padding>
             <img class="profile-image" [src]="picPreview" (click)="showPictureOptions()" *ngIf="picPreview">
             <img class="profile-image" src="assets/images/avatar.png" (click)="showPictureOptions()" *ngIf="!picPreview">
-            <h3 id="profile-name">{{user?.name}}</h3>
+            <h3 id="profile-name">{{user?.business_name}}</h3>
             <p class="profile-description">
-                {{user?.business_name}}
+                {{user?.name}}
             </p>
             <button ion-button icon-left (click)="showPictureOptions()" small color="primary" *ngIf="!canUpload">
                 <ion-icon name="image"></ion-icon>

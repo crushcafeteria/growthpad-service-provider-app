@@ -41,10 +41,10 @@ export class AdProvider {
         });
     }
 
-    getSPAds(spID) {
+    getSPAds(spID, page = 1) {
         return new Promise((resolve) => {
             this.storage.get('token').then(token => {
-                this.http.get(config.url + 'sp/ads?spID=' + spID, {
+                this.http.get(config.url + 'sp/ads?spID=' + spID + '&page=' + page, {
                     headers: new Authorization().attachToken(token.value)
                 })
                     .subscribe(res => {
@@ -59,6 +59,21 @@ export class AdProvider {
             this.storage.get('token').then(token => {
                 this.http.post(config.url + 'ads', {
                     payload: JSON.stringify(payload)
+                }, {
+                    headers: new Authorization().attachToken(token.value)
+                })
+                    .subscribe(res => {
+                        resolve(res);
+                    })
+            });
+        });
+    }
+
+    deleteAd(id) {
+        return new Promise((resolve) => {
+            this.storage.get('token').then(token => {
+                this.http.post(config.url + 'ad/delete', {
+                    id: id
                 }, {
                     headers: new Authorization().attachToken(token.value)
                 })
