@@ -30,6 +30,7 @@ export class MyApp {
     picture = null;
     credits = 0;
     latestProfile = null;
+    profileInterval = null;
 
     constructor(public platform: Platform,
                 public statusBar: StatusBar,
@@ -54,19 +55,22 @@ export class MyApp {
         // Load global config
         this.config = config;
 
-        // Load user profile on login
+        // always load profile
+        this.loadProfile();
+
+        // Load on login event
         this.events.subscribe('logged-in', () => {
             this.loadProfile();
         });
 
-        // Load profile
-        this.loadProfile();
-        setInterval(()=>{
-        }, 15000);
+        // update profile regularly
+        this.profileInterval = setInterval(() => {
+            this.loadProfile();
+        }, 30000);
 
         // Update credits
-        setInterval(()=>{
-            if(this.latestProfile){
+        setInterval(() => {
+            if (this.latestProfile) {
                 this.credits = this.latestProfile.credits;
             }
         }, 1000);
@@ -142,7 +146,7 @@ export class MyApp {
             if (profile) {
                 this.user = profile;
                 this.picture = profile['picture'];
-                this.credits= profile['credits'];
+                this.credits = profile['credits'];
                 this.latestProfile = profile;
             }
         });
@@ -179,17 +183,7 @@ export class MyApp {
     checkSessionValidity() {
         this.storage.get('token').then(token => {
             if (token) {
-                let now = Math.round((new Date()).getTime() / 1000);
-                if (now > token.expiry) {
-                    this.storage.clear().then(() => {
-                        this.nav.setRoot(LandingPage);
-                        this.toast.show('Your session has expired!. Please login again');
-                    }).then(() => {
-                        this.storage.set('online', true);
-                    });
-                } else {
-                    console.log('Session is valid');
-                }
+                this.storage.set('online', true);
             }
         });
     }
